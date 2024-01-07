@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   moves_swap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/29 14:08:47 by natali            #+#    #+#             */
-/*   Updated: 2024/01/07 13:49:03 by natali           ###   ########.fr       */
+/*   Created: 2024/01/07 13:04:05 by natali            #+#    #+#             */
+/*   Updated: 2024/01/07 13:17:54 by natali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	exit_failure(int i)
+void swap_a(t_data *stack_a)
 {
-	ft_printf("Error\n");
-	exit(i);
+    t_data *temp;
+
+    temp = stack_a->nb;
+    stack_a->nb = stack_a->next->nb;
+    stack_a->next->nb = temp;
+    write(1, "sa\n", 3);
 }
 
-void free_list(t_data *stack)
+void swap_b(t_data *stack_b)
 {
-	t_data *temp;
-	
-	temp = NULL;
-	while(stack->next)
-	{
-		temp = stack->next;
-		free(stack);
-		stack = temp;
-	}
-	free(stack);
-	return(EXIT_SUCCESS);
+    t_data *temp;
+
+    temp = stack_b->nb;
+    stack_b->nb = stack_b->next->nb;
+    stack_b->next->nb = temp;
+    write(1, "sb\n", 3);
 }

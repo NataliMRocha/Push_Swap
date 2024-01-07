@@ -6,70 +6,86 @@
 /*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 13:57:05 by natali            #+#    #+#             */
-/*   Updated: 2023/11/29 14:51:17 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/07 16:47:11 by natali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	isnum(char *argv)
+void bubble_sort_argv(char *argv[])
 {
-	int	i;
+	char	*temp;
+	int		i;
+	int		j;
 
+	temp = NULL;
 	i = 0;
 	while (argv[i])
 	{
-		if (!ft_isdigit(argv[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void	check_args(char *argv[], int argc)
-{
-	int	i;
-	int	j;
-
-	if (argc < 2)
-		exit(EXIT_FAILURE);
-	i = 0;
-	while (argv[++i])
-	{
-		if (!isnum(argv[i]) || (ft_atoi(argv[i]) > INT_MAX
-				|| ft_atoi(argv[i]) < INT_MIN))
-			exit_failure(i, "Só pode número e do tamanho de um int");
 		j = i + 1;
-		while (argv[j])
+		while(argv[j])
 		{
-			if (ft_atoi(argv[j]) == ft_atoi(argv[i]))
-				exit_failure(i, "Não pode repetir os números ok");
+			if (ft_atoi(argv[i]) > ft_atoi(argv[j]))
+			{
+				temp = argv[i];
+				argv[i] = argv[j];
+				argv[j] = temp;
+			}
 			j++;
 		}
+		i++;
 	}
 }
 
-void	allocate_stack(char *argv[])
+int	is_in_order(t_data *stack_a)
 {
-	int		i;
-	int		j;
-	t_data	*data;
-	t_data	*new;
-
-	data = malloc(sizeof(t_data));
-	i = 0;
-	j = 0;
-	while (argv[++j])
+	while(stack_a->next)
 	{
-		new = new_node(ft_atoi(argv[j]), i);
-		printf("Número: %d Posição: %d\n", new->nb, new->pos_curr);
-		add_node_back(&data, new);
+		if(stack_a->nb > stack_a->next->nb)
+			return(0);
+		stack_a = stack_a->next;
+	}
+	return(1);
+}
+
+void	set_index(char *argv[], t_data *stack_a)
+{
+	int	i;
+	t_data *temp;
+
+	i = 0;
+	temp = stack_a;
+	while(argv[i] && temp)
+	{
+		if(ft_atoi(argv[i]) == temp->nb)
+		{
+			temp->pos_lst = i + 1;
+			temp = temp->next;
+			i = -1;
+		}
 		i++;
 	}
 }
 
 int	main(int argc, char *argv[])
 {
+	t_data	*stack_a;
+	t_data	*stack_b;
+
+	stack_a = NULL;
+	stack_b = NULL;
 	check_args(argv, argc);
-	allocate_stack(argv);
+	allocate_stack(stack_a, argv);
+	if (is_in_order(stack_a))
+		return(free_list(stack_a));
+	if (argc == 3)
+		swap_a(stack_a);
+	bubble_sort_argv(argv);
+	set_index(argv, stack_a);
+	if (argc == 4)
+		
+	/* int i = 0;
+	while(argv[i++])
+		printf("\n%s\n", argv[i]); */
+	return (free_list(stack_a));
 }
