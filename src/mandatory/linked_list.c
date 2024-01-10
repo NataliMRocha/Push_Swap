@@ -6,7 +6,7 @@
 /*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:07:49 by natali            #+#    #+#             */
-/*   Updated: 2024/01/07 16:26:26 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/09 21:35:46 by natali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_data	*new_node(int nb, int pos)
 	new->nb = nb;
 	new->pos_curr = pos;
 	new->pos_lst = 0;
-	new->target_pos = -1;
+	new->target_pos_a = -1;
 	new->cost_a = -1;
 	new->cost_b = -1;
 	new->next = NULL;
@@ -45,3 +45,4 @@ t_data	*get_last_node(t_data *lst)
 		lst = lst->next;
 	return (lst);
 }
+

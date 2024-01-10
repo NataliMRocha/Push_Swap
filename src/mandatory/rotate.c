@@ -6,36 +6,36 @@
 /*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:49:33 by natali            #+#    #+#             */
-/*   Updated: 2024/01/07 17:45:50 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/08 18:52:34 by natali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void rotate(t_data *stack)
+void rotate(t_data **stack)
 {
     t_data *temp;
     t_data *head;
 
-    head = stack->next;
-    temp = stack;
-    while(stack->next)
-        stack = stack->next;
+    head = (*stack)->next;
+    temp = *stack;
+    while((*stack)->next)
+        *stack = (*stack)->next;
     temp->next = NULL;
-    stack->next = temp;
-    stack = head;
+    (*stack)->next = temp;
+    *stack = head;
 }
 
-void reverse_rotate(t_data *stack)
+void reverse_rotate(t_data **stack)
 {
     t_data  *last_node;
     t_data  *temp;
 
-    temp = stack;
+    temp = *stack;
     last_node = NULL;
     while(temp->next)
     {
-        if (temp->next->next = NULL)
+        if(temp->next->next == NULL)
         {
             last_node = temp;
             temp = temp->next;
@@ -43,11 +43,11 @@ void reverse_rotate(t_data *stack)
         }
         temp = temp->next;
     }
-    temp->next = stack;
+    temp->next = *stack;
     last_node->next = NULL;    
 }
 
-void choose_r(int flag, t_data *stack_a, t_data *stack_b)
+void choose_r(int flag, t_data **stack_a, t_data **stack_b)
 {
     if (flag == 1)
     {
@@ -67,7 +67,7 @@ void choose_r(int flag, t_data *stack_a, t_data *stack_b)
     }
 }
 
-void choose_rrr(int flag, t_data *stack_a, t_data *stack_b)
+void choose_rrr(int flag, t_data **stack_a, t_data **stack_b)
 {
     if (flag == 1)
     {

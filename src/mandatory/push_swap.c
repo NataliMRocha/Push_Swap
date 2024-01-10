@@ -6,7 +6,7 @@
 /*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 13:57:05 by natali            #+#    #+#             */
-/*   Updated: 2024/01/07 16:47:11 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/10 13:07:39 by natali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,30 @@ void	set_index(char *argv[], t_data *stack_a)
 	}
 }
 
+void printf_stack(t_data *stack, char c)
+{
+	printf("stack %c\n", c);
+	while(stack)
+	{
+		printf("nb: %d | ", stack->nb);
+		printf("pos_lst: %d\n", stack->pos_lst);
+		stack = stack->next;
+	}
+}
+
+void	sort_3(t_data **stack_a)
+{
+	t_data *max;
+
+	max = get_max(*stack_a);
+	if ((*stack_a)->nb == max->nb)
+		choose_r(1, stack_a, NULL);
+	else if ((*stack_a)->next->nb == max->nb)
+		choose_rrr(1, stack_a, NULL);
+	if ((*stack_a)->nb > (*stack_a)->next->nb)
+		sa(stack_a);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_data	*stack_a;
@@ -75,17 +99,18 @@ int	main(int argc, char *argv[])
 	stack_a = NULL;
 	stack_b = NULL;
 	check_args(argv, argc);
-	allocate_stack(stack_a, argv);
+	stack_a = allocate_stack(stack_a, argv);
 	if (is_in_order(stack_a))
 		return(free_list(stack_a));
-	if (argc == 3)
-		swap_a(stack_a);
 	bubble_sort_argv(argv);
 	set_index(argv, stack_a);
-	if (argc == 4)
-		
-	/* int i = 0;
-	while(argv[i++])
-		printf("\n%s\n", argv[i]); */
+	if (argc == 3)
+		sa(&stack_a);
+	else if (argc == 4)
+		sort_3(&stack_a);
+	else
+		sorting(&stack_a, &stack_b);
+	printf_stack(stack_a, 'a');
+	printf_stack(stack_b, 'b');
 	return (free_list(stack_a));
 }

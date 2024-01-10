@@ -6,7 +6,7 @@
 /*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 11:04:10 by natali            #+#    #+#             */
-/*   Updated: 2024/01/07 13:54:17 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/10 13:23:03 by natali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	isnum(char *argv)
 	int	i;
 
 	i = 0;
+	if (argv[i] == '-' || '+')
+		i++;
 	while (argv[i])
 	{
 		if (!ft_isdigit(argv[i]))
@@ -31,7 +33,7 @@ void	check_args(char *argv[], int argc)
 	int	i;
 	int	j;
 
-	if (argc < 2)
+	if (argc < 3)
 		exit(EXIT_FAILURE);
 	i = 0;
 	while (argv[++i])
@@ -55,13 +57,11 @@ t_data *allocate_stack(t_data *stack_a, char *argv[])
 	int		j;
 	t_data	*new;
 
-	stack_a = malloc(sizeof(t_data));
 	i = 0;
 	j = 0;
 	while (argv[++j])
 	{
 		new = new_node(ft_atoi(argv[j]), i);
-		/* printf("Número: %d Posição: %d\n", new->nb, new->pos_curr); */
 		add_node_back(&stack_a, new);
 		i++;
 	}

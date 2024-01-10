@@ -6,7 +6,7 @@
 /*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 16:19:31 by natali            #+#    #+#             */
-/*   Updated: 2024/01/07 16:26:19 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/10 13:26:12 by natali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ struct s_data{
 	int		nb;
 	int		pos_curr;
 	int		pos_lst;
-	int		target_pos;
+	int		target_pos_a;
 	int		cost_a;
 	int		cost_b;
 	t_data	*next;
@@ -38,5 +38,21 @@ t_data	*new_node(int nb, int pos);
 int		isnum(char *argv);
 void	check_args(char *argv[], int argc);
 void	bubble_sort_argv(char *argv[]);
+int		free_list(t_data *stack);
+void	rotate(t_data **stack);
+void	reverse_rotate(t_data **stack);
+void	choose_r(int flag, t_data **stack_a, t_data **stack_b);
+void	choose_rrr(int flag, t_data **stack_a, t_data **stack_b);
+void	swap(t_data **stack);
+void	sa(t_data **stack_a);
+void	sb(t_data **stack_b);
+t_data	*get_max(t_data *stack);
+void	sort_3(t_data **stack_a);
+int		stack_len(t_data *stack);
+void	sorting(t_data **stack_a, t_data **stack_b);
+void	pb(t_data **stack_a, t_data **stack_b);
+void	pa(t_data **stack_a, t_data **stack_b);
+void	send_to(t_data **src, t_data **dst);
+void printf_stack(t_data *stack, char c);
 
 #endif

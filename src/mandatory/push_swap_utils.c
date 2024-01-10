@@ -1,35 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
+/*   push_swap_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/07 13:04:05 by natali            #+#    #+#             */
-/*   Updated: 2024/01/08 18:52:31 by natali           ###   ########.fr       */
+/*   Created: 2024/01/08 18:02:57 by natali            #+#    #+#             */
+/*   Updated: 2024/01/08 18:52:34 by natali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void swap(t_data **stack)
+t_data *get_max(t_data *stack)
 {
+    int max;
     t_data *temp;
 
-    temp = *stack;
-    *stack = (*stack)->next;
-    temp->next = (*stack)->next;
-    (*stack)->next = temp;
+    max = INT_MIN;
+    temp = stack;
+    while(stack)
+    {
+        if(max < stack->nb)
+            max = stack->nb;
+        stack = stack->next;
+    }
+    while (temp)
+	{
+		if (temp->nb == max)
+			return (temp);
+		temp = temp->next;
+	}
+	return (NULL);
 }
 
-void sa(t_data **stack_a)
+int stack_len(t_data *stack)
 {
-    swap(stack_a);
-    write(1, "sa\n", 3);
-}
+    int i;
 
-void sb(t_data **stack_b)
-{
-    swap(stack_b);
-    write(1, "sb\n", 3);
+    i = 0;
+    while(stack)
+    {
+        stack = stack->next;
+        i++;
+    }
+    return(i);
 }
