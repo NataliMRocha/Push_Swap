@@ -6,7 +6,7 @@
 /*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 13:57:05 by natali            #+#    #+#             */
-/*   Updated: 2024/01/10 13:07:39 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/10 14:55:03 by natali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void bubble_sort_argv(char *argv[])
 	int		j;
 
 	temp = NULL;
-	i = 0;
+	i = 1;
 	while (argv[i])
 	{
 		j = i + 1;
@@ -59,22 +59,11 @@ void	set_index(char *argv[], t_data *stack_a)
 	{
 		if(ft_atoi(argv[i]) == temp->nb)
 		{
-			temp->pos_lst = i + 1;
+			temp->pos_lst = i;
 			temp = temp->next;
 			i = -1;
 		}
 		i++;
-	}
-}
-
-void printf_stack(t_data *stack, char c)
-{
-	printf("stack %c\n", c);
-	while(stack)
-	{
-		printf("nb: %d | ", stack->nb);
-		printf("pos_lst: %d\n", stack->pos_lst);
-		stack = stack->next;
 	}
 }
 
@@ -109,8 +98,6 @@ int	main(int argc, char *argv[])
 	else if (argc == 4)
 		sort_3(&stack_a);
 	else
-		sorting(&stack_a, &stack_b);
-	printf_stack(stack_a, 'a');
-	printf_stack(stack_b, 'b');
+		push_swap(&stack_a, &stack_b);
 	return (free_list(stack_a));
 }

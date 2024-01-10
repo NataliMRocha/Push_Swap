@@ -6,13 +6,13 @@
 /*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:13:25 by natali            #+#    #+#             */
-/*   Updated: 2024/01/10 13:27:19 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/10 16:16:34 by natali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void sorting(t_data **stack_a, t_data **stack_b)
+void push_swap(t_data **stack_a, t_data **stack_b)
 {
     int len;
     int half_stack;
@@ -25,37 +25,52 @@ void sorting(t_data **stack_a, t_data **stack_b)
         {
             pb(stack_a, stack_b);
             len--;
-            printf_stack(*stack_a, 'a');
-	        printf_stack(*stack_b, 'b');
         }
         else
-        {   choose_r(1, stack_a, NULL);
-            printf_stack(*stack_a, 'a');
-	        printf_stack(*stack_b, 'b');
-        }
+            choose_r(1, stack_a, NULL);
     }
-    
+    while (len-- > 3)
+        pb(stack_a, stack_b);
+    sort_3(stack_a);
+    finding_pos_curr(stack_a);
+    finding_pos_curr(stack_b);
+    finding_target_pos_in_a(stack_a, stack_b, stack_len(*stack_b));
+    printf_stack(*stack_a, 'a');
+	printf_stack(*stack_b, 'b');
 }
 
-void pb(t_data **stack_a, t_data **stack_b)
-{
-    send_to(stack_a, stack_b);
-    write(1, "pb\n", 3);    
-}
-
-void pa(t_data **stack_a, t_data **stack_b)
-{
-    send_to(stack_b, stack_a);
-    write(1, "pa\n", 3);    
-}
-
-void send_to(t_data **src, t_data **dst)
+void finding_pos_curr(t_data **stack)
 {
     t_data *temp;
+    int i;
 
-    temp = *src;
-    temp->next = NULL;
-    *src = (*src)->next;
-    temp->next = *dst;
-    *dst = temp;
+    temp = *stack;
+    i = 0;
+    while(temp)
+    {
+        temp->pos_curr = i;
+        temp = temp->next;
+        i++;
+    }
+}
+
+void finding_target_pos_in_a(t_data **stack_a, t_data **stack_b, int len)
+{
+    t_data  *temp_a;
+    t_data  *temp_b;
+
+    temp_b = *stack_b;
+    while(temp_b)
+    {
+        temp_a = *stack_a;
+        temp_b->target_pos_a = len;
+        while(temp_a)
+        {
+            if (temp_b->pos_lst < temp_a->pos_lst && temp_b->target_pos_a >= temp_a->pos_lst)
+                temp_b->target_pos_a = temp_a->pos_curr;
+            temp_a = temp_a->next;
+        }
+        temp_b = temp_b->next;
+    }
+    
 }

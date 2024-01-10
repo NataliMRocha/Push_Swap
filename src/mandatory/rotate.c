@@ -6,7 +6,7 @@
 /*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:49:33 by natali            #+#    #+#             */
-/*   Updated: 2024/01/08 18:52:34 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/10 15:10:18 by natali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,14 @@ void reverse_rotate(t_data **stack)
     last_node = NULL;
     while(temp->next)
     {
-        if(temp->next->next == NULL)
-        {
-            last_node = temp;
-            temp = temp->next;
-            break;
-        }
+        last_node = temp;
         temp = temp->next;
+        if(temp == NULL)
+            break ;
     }
     temp->next = *stack;
-    last_node->next = NULL;    
+    last_node->next = NULL;
+    *stack = temp;
 }
 
 void choose_r(int flag, t_data **stack_a, t_data **stack_b)
