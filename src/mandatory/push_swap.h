@@ -6,7 +6,7 @@
 /*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 16:19:31 by natali            #+#    #+#             */
-/*   Updated: 2024/01/10 16:06:46 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/10 19:26:18 by natali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,16 @@ void	swap(t_data **stack);
 void	sa(t_data **stack_a);
 void	sb(t_data **stack_b);
 t_data	*get_max(t_data *stack);
+t_data	*get_min(t_data *stack);
 void	sort_3(t_data **stack_a);
 int		stack_len(t_data *stack);
 void	push_swap(t_data **stack_a, t_data **stack_b);
 void	pb(t_data **stack_a, t_data **stack_b);
 void	pa(t_data **stack_a, t_data **stack_b);
 void	send_to(t_data **src, t_data **dst);
-void	finding_pos_curr(t_data **stack);
-void	finding_target_pos_in_a(t_data **stack_a, t_data **stack_b, int len);
+void	find_pos_curr(t_data **stack);
+void	find_target_pos_in_a(t_data **stack_a, t_data **stack_b, t_data *max_nb, t_data *min_nb);
+void	find_cost(t_data *stack_a, t_data *stack_b);
 
 void printf_stack(t_data *stack, char c);
 

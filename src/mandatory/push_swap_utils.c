@@ -6,7 +6,7 @@
 /*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:02:57 by natali            #+#    #+#             */
-/*   Updated: 2024/01/10 15:15:07 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/10 19:15:06 by natali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,28 @@ t_data *get_max(t_data *stack)
     while (temp)
 	{
 		if (temp->nb == max)
+			return (temp);
+		temp = temp->next;
+	}
+	return (NULL);
+}
+
+t_data *get_min(t_data *stack)
+{
+    int min;
+    t_data *temp;
+
+    min = stack->nb;
+    temp = stack;
+    while(stack)
+    {
+        if(stack->nb < min)
+            min = stack->nb;
+        stack = stack->next;
+    }
+    while (temp)
+	{
+		if (temp->nb == min)
 			return (temp);
 		temp = temp->next;
 	}

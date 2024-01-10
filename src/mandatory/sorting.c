@@ -6,7 +6,7 @@
 /*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:13:25 by natali            #+#    #+#             */
-/*   Updated: 2024/01/10 16:16:34 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/10 19:52:51 by natali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,20 @@ void push_swap(t_data **stack_a, t_data **stack_b)
     while (len-- > 3)
         pb(stack_a, stack_b);
     sort_3(stack_a);
-    finding_pos_curr(stack_a);
-    finding_pos_curr(stack_b);
-    finding_target_pos_in_a(stack_a, stack_b, stack_len(*stack_b));
+	sorting_stack_b(stack_a, stack_b);
+	
     printf_stack(*stack_a, 'a');
 	printf_stack(*stack_b, 'b');
 }
+void sorting_stack_b(t_data **stack_a, t_data **stack_b)
+{
+	while(*stack_b)
+	{
+		find_target_pos_in_a(stack_a, stack_b, get_max(*stack_a), get_min(*stack_a));
+	}
+}
 
-void finding_pos_curr(t_data **stack)
+void find_pos_curr(t_data **stack)
 {
     t_data *temp;
     int i;
@@ -54,23 +60,35 @@ void finding_pos_curr(t_data **stack)
     }
 }
 
-void finding_target_pos_in_a(t_data **stack_a, t_data **stack_b, int len)
+void find_target_pos_in_a(t_data **stack_a, t_data **stack_b,
+				t_data *max_nb, t_data *min_nb)
 {
     t_data  *temp_a;
     t_data  *temp_b;
+    int		i;
 
     temp_b = *stack_b;
+    find_pos_curr(stack_a);
     while(temp_b)
     {
         temp_a = *stack_a;
-        temp_b->target_pos_a = len;
+        i = stack_len(*stack_a) + stack_len(*stack_b);
         while(temp_a)
         {
-            if (temp_b->pos_lst < temp_a->pos_lst && temp_b->target_pos_a >= temp_a->pos_lst)
-                temp_b->target_pos_a = temp_a->pos_curr;
+            if (temp_b->pos_lst < temp_a->pos_lst && temp_a->pos_lst <= i)
+            {
+				temp_b->target_pos_a = temp_a->pos_curr;
+				i = temp_a->pos_lst;
+			}
+			if (temp_b->pos_lst > max_nb->pos_lst)
+				temp_b->target_pos_a = min_nb->pos_curr;
             temp_a = temp_a->next;
         }
         temp_b = temp_b->next;
     }
-    
+	find_cost(*stack_a, *stack_b);
+}
+void find_cost(t_data *stack_a, t_data *stack_b)
+{
+	
 }
