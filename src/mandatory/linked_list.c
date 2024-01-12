@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: namoreir <namoreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:07:49 by natali            #+#    #+#             */
-/*   Updated: 2024/01/09 21:35:46 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/12 16:40:46 by namoreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,3 @@ t_data	*get_last_node(t_data *lst)
 		lst = lst->next;
 	return (lst);
 }
-

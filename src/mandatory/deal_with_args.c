@@ -6,7 +6,7 @@
 /*   By: namoreir <namoreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 11:04:10 by natali            #+#    #+#             */
-/*   Updated: 2024/01/12 12:54:34 by namoreir         ###   ########.fr       */
+/*   Updated: 2024/01/12 16:44:16 by namoreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	check_args(char *argv[], int argc)
 	}
 }
 
-t_data *allocate_stack(t_data *stack_a, char *argv[])
+t_data	*allocate_stack(t_data *stack_a, char *argv[])
 {
 	int		i;
 	int		j;
@@ -65,10 +65,10 @@ t_data *allocate_stack(t_data *stack_a, char *argv[])
 		add_node_back(&stack_a, new);
 		i++;
 	}
-	return(stack_a);
+	return (stack_a);
 }
 
-void bubble_sort_argv(char *argv[])
+void	bubble_sort_argv(char *argv[])
 {
 	char	*temp;
 	int		i;
@@ -79,7 +79,7 @@ void bubble_sort_argv(char *argv[])
 	while (argv[i])
 	{
 		j = i + 1;
-		while(argv[j])
+		while (argv[j])
 		{
 			if (ft_atoi(argv[i]) > ft_atoi(argv[j]))
 			{
@@ -95,14 +95,14 @@ void bubble_sort_argv(char *argv[])
 
 void	set_index(char *argv[], t_data *stack_a)
 {
-	int	i;
-	t_data *temp;
+	int		i;
+	t_data	*temp;
 
 	i = 1;
 	temp = stack_a;
-	while(argv[i] && temp)
+	while (argv[i] && temp)
 	{
-		if(ft_atoi(argv[i]) == temp->nb)
+		if (ft_atoi(argv[i]) == temp->nb)
 		{
 			temp->pos_lst = i;
 			temp = temp->next;

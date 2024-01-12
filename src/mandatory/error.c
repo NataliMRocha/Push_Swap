@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: namoreir <namoreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:08:47 by natali            #+#    #+#             */
-/*   Updated: 2024/01/08 17:36:58 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/12 16:40:57 by namoreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ int	exit_failure(int i)
 	exit(i);
 }
 
-int free_list(t_data *stack)
+int	free_list(t_data *stack)
 {
-	t_data *temp;
-	
+	t_data	*temp;
+
 	temp = NULL;
-	while(stack)
+	while (stack)
 	{
 		temp = stack->next;
 		free(stack);
 		stack = temp;
 	}
 	free(stack);
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
