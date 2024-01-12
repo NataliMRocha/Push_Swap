@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_and_allocate_args.c                          :+:      :+:    :+:   */
+/*   deal_with_args.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: namoreir <namoreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 11:04:10 by natali            #+#    #+#             */
-/*   Updated: 2024/01/10 13:23:03 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/12 12:54:34 by namoreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	isnum(char *argv)
 	int	i;
 
 	i = 0;
-	if (argv[i] == '-' || '+')
+	if (argv[i] == '-' || argv[i] == '+')
 		i++;
 	while (argv[i])
 	{
@@ -66,4 +66,48 @@ t_data *allocate_stack(t_data *stack_a, char *argv[])
 		i++;
 	}
 	return(stack_a);
+}
+
+void bubble_sort_argv(char *argv[])
+{
+	char	*temp;
+	int		i;
+	int		j;
+
+	temp = NULL;
+	i = 1;
+	while (argv[i])
+	{
+		j = i + 1;
+		while(argv[j])
+		{
+			if (ft_atoi(argv[i]) > ft_atoi(argv[j]))
+			{
+				temp = argv[i];
+				argv[i] = argv[j];
+				argv[j] = temp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void	set_index(char *argv[], t_data *stack_a)
+{
+	int	i;
+	t_data *temp;
+
+	i = 1;
+	temp = stack_a;
+	while(argv[i] && temp)
+	{
+		if(ft_atoi(argv[i]) == temp->nb)
+		{
+			temp->pos_lst = i;
+			temp = temp->next;
+			i = 0;
+		}
+		i++;
+	}
 }

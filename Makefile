@@ -3,8 +3,8 @@ CC			:= gcc
 FLAGS		:= -Wall -Wextra -Werror -g3
 BIN			:= ./bin/
 SRCS		:= $(addprefix ./src/mandatory/, push_swap.c linked_list.c \
-					error.c check_and_allocate_args.c rotate.c swap.c \
-					push_swap_utils.c sorting.c send_to.c)
+					error.c deal_with_args.c rotate.c swap.c \
+					push_swap_utils.c finding.c push.c)
 OBJS		:= $(patsubst ./src/mandatory/%.c,$(BIN)%.o,$(SRCS))
 LIB			:= ./libft/libft.a
 HEADERS		:= -I ./mandatory/push_swap.h -I ./libft

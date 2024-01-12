@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: namoreir <namoreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 16:19:31 by natali            #+#    #+#             */
-/*   Updated: 2024/01/10 19:26:18 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/12 15:30:09 by namoreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ struct s_data{
 	t_data	*next;
 };
 
+void	set_index(char *argv[], t_data *stack_a);
 t_data	*allocate_stack(t_data *stack_a, char *argv[]);
 int		exit_failure(int i);
 t_data	*get_last_node(t_data *lst);
@@ -53,11 +54,15 @@ int		stack_len(t_data *stack);
 void	push_swap(t_data **stack_a, t_data **stack_b);
 void	pb(t_data **stack_a, t_data **stack_b);
 void	pa(t_data **stack_a, t_data **stack_b);
-void	send_to(t_data **src, t_data **dst);
+void	push_to(t_data **src, t_data **dst);
 void	find_pos_curr(t_data **stack);
 void	find_target_pos_in_a(t_data **stack_a, t_data **stack_b, t_data *max_nb, t_data *min_nb);
 void	find_cost(t_data *stack_a, t_data *stack_b);
-
-void printf_stack(t_data *stack, char c);
+void	send_to_a(t_data **stack_a, t_data **stack_b);
+void	calculate_cost(t_data **stack, int len, char c, int pos_curr);
+int		is_in_order(t_data *stack_a);
+void	printf_stack(t_data *stack, char c);
+int		total_cost(t_data *stack_b);
+int		send_to_b(t_data **stack_a, t_data **stack_b, int len);
 
 #endif

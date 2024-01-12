@@ -3,69 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: namoreir <namoreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 13:57:05 by natali            #+#    #+#             */
-/*   Updated: 2024/01/10 14:55:03 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/12 15:32:10 by namoreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void bubble_sort_argv(char *argv[])
-{
-	char	*temp;
-	int		i;
-	int		j;
-
-	temp = NULL;
-	i = 1;
-	while (argv[i])
-	{
-		j = i + 1;
-		while(argv[j])
-		{
-			if (ft_atoi(argv[i]) > ft_atoi(argv[j]))
-			{
-				temp = argv[i];
-				argv[i] = argv[j];
-				argv[j] = temp;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-int	is_in_order(t_data *stack_a)
-{
-	while(stack_a->next)
-	{
-		if(stack_a->nb > stack_a->next->nb)
-			return(0);
-		stack_a = stack_a->next;
-	}
-	return(1);
-}
-
-void	set_index(char *argv[], t_data *stack_a)
-{
-	int	i;
-	t_data *temp;
-
-	i = 0;
-	temp = stack_a;
-	while(argv[i] && temp)
-	{
-		if(ft_atoi(argv[i]) == temp->nb)
-		{
-			temp->pos_lst = i;
-			temp = temp->next;
-			i = -1;
-		}
-		i++;
-	}
-}
 
 void	sort_3(t_data **stack_a)
 {
@@ -78,6 +23,18 @@ void	sort_3(t_data **stack_a)
 		choose_rrr(1, stack_a, NULL);
 	if ((*stack_a)->nb > (*stack_a)->next->nb)
 		sa(stack_a);
+}
+
+void push_swap(t_data **stack_a, t_data **stack_b)
+{
+    int len;
+
+    len = send_to_b(stack_a, stack_b, stack_len(*stack_a));
+    while (len-- > 3)
+        pb(stack_a, stack_b);
+    sort_3(stack_a);
+	send_to_a(stack_a, stack_b);
+	
 }
 
 int	main(int argc, char *argv[])

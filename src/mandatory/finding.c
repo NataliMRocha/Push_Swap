@@ -1,49 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sorting.c                                          :+:      :+:    :+:   */
+/*   finding.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: namoreir <namoreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:13:25 by natali            #+#    #+#             */
-/*   Updated: 2024/01/10 19:53:18 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/12 15:02:18 by namoreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void push_swap(t_data **stack_a, t_data **stack_b)
-{
-    int len;
-    int half_stack;
-
-    len = stack_len(*stack_a);
-    half_stack = len / 2;
-    while(len > 3 && len > half_stack + 1)
-    {
-        if ((*stack_a)->pos_lst <= half_stack)
-        {
-            pb(stack_a, stack_b);
-            len--;
-        }
-        else
-            choose_r(1, stack_a, NULL);
-    }
-    while (len-- > 3)
-        pb(stack_a, stack_b);
-    sort_3(stack_a);
-	sorting_stack_b(stack_a, stack_b);
-	
-    printf_stack(*stack_a, 'a');
-	printf_stack(*stack_b, 'b');
-}
-void sorting_stack_b(t_data **stack_a, t_data **stack_b)
-{
-	while(*stack_b)
-	{
-		find_target_pos_in_a(stack_a, stack_b, get_max(*stack_a), get_min(*stack_a));
-	}
-}
 
 void find_pos_curr(t_data **stack)
 {
@@ -88,7 +55,76 @@ void find_target_pos_in_a(t_data **stack_a, t_data **stack_b,
     }
 	find_cost(*stack_a, *stack_b);
 }
+
 void find_cost(t_data *stack_a, t_data *stack_b)
 {
-	
+	int	len_a;
+	int	len_b;
+	t_data	*temp;
+
+	find_pos_curr(&stack_b);
+	find_pos_curr(&stack_a);
+	len_a = stack_len(stack_a);
+	len_b = stack_len(stack_b);
+	while(stack_b)
+	{
+		calculate_cost(&stack_b, len_b, 'b', stack_b->pos_curr);
+		temp = stack_a;
+		while(temp)
+		{
+			if (stack_b->target_pos_a == temp->pos_curr)
+				calculate_cost(&stack_b, len_a, 'a', temp->pos_curr);
+			temp = temp->next;
+		}
+		stack_b = stack_b->next;
+	}
+}
+
+void	calculate_cost(t_data **stack, int len, char c, int pos_curr)
+{
+	if (*stack == NULL)
+		return ;
+	if (pos_curr <= (len / 2))
+	{
+		if(c == 'a')
+			(*stack)->cost_a = pos_curr;
+		else
+			(*stack)->cost_b = pos_curr;
+	}
+	else
+	{
+		if(c == 'a')
+			(*stack)->cost_a = pos_curr - len;
+		else
+			(*stack)->cost_b = pos_curr - len;
+	}
+
+}
+t_data	*finding_min_cust(t_data *stack_b)
+{
+	int	min_cost;
+	t_data	*temp;
+
+	min_cost = INT_MAX;
+	temp = stack_b;
+	while(temp)
+	{
+		if (min_cost > total_cost(temp))
+			min_cost = total_cost(temp);
+		temp = temp->next;
+	}
+	while(stack_b)
+	{
+		if(total_cost(stack_b) == min_cost)
+			return(stack_b);
+		stack_b = stack_b->next;
+	}
+	return(NULL);
+}
+
+int	total_cost(t_data *stack_b)
+{
+	int	total_cost;
+
+	total_cost = (abs(stack_b->cost_a)) + (abs(stack_b->cost_b));
 }

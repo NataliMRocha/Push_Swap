@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natali <natali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: namoreir <namoreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:02:57 by natali            #+#    #+#             */
-/*   Updated: 2024/01/10 19:15:06 by natali           ###   ########.fr       */
+/*   Updated: 2024/01/12 11:39:38 by namoreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,17 @@ int stack_len(t_data *stack)
         i++;
     }
     return(i);
+}
+
+int	is_in_order(t_data *stack_a)
+{
+	while(stack_a->next)
+	{
+		if(stack_a->nb > stack_a->next->nb)
+			return(0);
+		stack_a = stack_a->next;
+	}
+	return(1);
 }
 
 void printf_stack(t_data *stack, char c)
