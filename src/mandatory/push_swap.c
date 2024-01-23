@@ -6,11 +6,11 @@
 /*   By: namoreir <namoreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 13:57:05 by natali            #+#    #+#             */
-/*   Updated: 2024/01/12 17:26:23 by namoreir         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:21:40 by namoreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../includes/push_swap.h"
 
 void	sort_3(t_data **stack_a)
 {
@@ -18,11 +18,11 @@ void	sort_3(t_data **stack_a)
 
 	max = get_max(*stack_a);
 	if ((*stack_a)->nb == max->nb)
-		choose_r(1, stack_a, NULL);
+		choose_r(1, stack_a, NULL, 0);
 	else if ((*stack_a)->next->nb == max->nb)
-		choose_rrr(1, stack_a, NULL);
+		choose_rr(1, stack_a, NULL, 0);
 	if ((*stack_a)->nb > (*stack_a)->next->nb)
-		sa(stack_a);
+		sa(stack_a, 0);
 }
 
 void	push_swap(t_data **stack_a, t_data **stack_b)
@@ -33,7 +33,7 @@ void	push_swap(t_data **stack_a, t_data **stack_b)
 
 	len = send_to_b(stack_a, stack_b, stack_len(*stack_a));
 	while (len-- > 3)
-		pb(stack_a, stack_b);
+		pb(stack_a, stack_b, 0);
 	sort_3(stack_a);
 	send_to_a(stack_a, stack_b);
 	len = stack_len(*stack_a) / 2;
@@ -47,9 +47,9 @@ void	push_swap(t_data **stack_a, t_data **stack_b)
 	while ((*stack_a)->pos_lst != 1)
 	{
 		if (top_of_list <= len)
-			choose_r(1, stack_a, NULL);
+			choose_r(1, stack_a, NULL, 0);
 		else
-			choose_rrr(1, stack_a, NULL);
+			choose_rr(1, stack_a, NULL, 0);
 	}
 }
 
@@ -67,7 +67,7 @@ int	main(int argc, char *argv[])
 	bubble_sort_argv(argv);
 	set_index(argv, stack_a);
 	if (argc == 3)
-		sa(&stack_a);
+		sa(&stack_a, 0);
 	else if (argc == 4)
 		sort_3(&stack_a);
 	else

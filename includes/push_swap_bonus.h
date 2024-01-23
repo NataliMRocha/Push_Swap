@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   push_swap_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: namoreir <namoreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/29 14:08:47 by natali            #+#    #+#             */
-/*   Updated: 2024/01/23 15:21:28 by namoreir         ###   ########.fr       */
+/*   Created: 2024/01/19 15:44:28 by namoreir          #+#    #+#             */
+/*   Updated: 2024/01/19 22:13:56 by namoreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/push_swap.h"
+#ifndef PUSH_SWAP_BONUS_H
+# define PUSH_SWAP_BONUS_H
 
-int	exit_failure(int i)
-{
-	ft_printf("Error\n");
-	exit(i);
-}
+# include "push_swap.h"
 
-int	free_list(t_data *stack)
-{
-	t_data	*temp;
+void	validate_instructions(char *move);
+void	choose_move(char *move, t_data **stack_a, t_data **stack_b);
+int		check_stack(t_data **stack_a, t_data **stack_b);
 
-	temp = NULL;
-	while (stack)
-	{
-		temp = stack->next;
-		free(stack);
-		stack = temp;
-	}
-	free(stack);
-	return (EXIT_SUCCESS);
-}
+#endif

@@ -6,11 +6,11 @@
 /*   By: namoreir <namoreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 11:04:10 by natali            #+#    #+#             */
-/*   Updated: 2024/01/12 16:44:16 by namoreir         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:21:23 by namoreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../includes/push_swap.h"
 
 int	isnum(char *argv)
 {
@@ -33,7 +33,7 @@ void	check_args(char *argv[], int argc)
 	int	i;
 	int	j;
 
-	if (argc < 3)
+	if (argc < 2)
 		exit(EXIT_FAILURE);
 	i = 0;
 	while (argv[++i])

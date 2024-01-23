@@ -6,11 +6,11 @@
 /*   By: namoreir <namoreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:02:57 by natali            #+#    #+#             */
-/*   Updated: 2024/01/12 17:27:50 by namoreir         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:21:38 by namoreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../includes/push_swap.h"
 
 t_data	*get_max(t_data *stack)
 {

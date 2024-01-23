@@ -6,11 +6,11 @@
 /*   By: namoreir <namoreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 21:13:25 by natali            #+#    #+#             */
-/*   Updated: 2024/01/12 16:43:12 by namoreir         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:21:32 by namoreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../includes/push_swap.h"
 
 void	find_pos_curr(t_data **stack)
 {

@@ -1,30 +1,80 @@
-NAME		:= push_swap
-CC			:= gcc
-FLAGS		:= -Wall -Wextra -Werror -g3
-BIN			:= ./bin/
-SRCS		:= $(addprefix ./src/mandatory/, push_swap.c linked_list.c \
-					error.c deal_with_args.c rotate.c swap.c \
-					push_swap_utils.c finding.c push.c send_to.c)
-OBJS		:= $(patsubst ./src/mandatory/%.c,$(BIN)%.o,$(SRCS))
-LIB			:= ./libft/libft.a
-HEADERS		:= -I ./mandatory/push_swap.h -I ./libft
+NAME = push_swap
+BONUS_NAME = checker
+CFLAGS = -Wall -Werror -Wextra -g3
 
-all: libft/libft.a $(BIN) $(NAME)
+# Paths for libraries
+LIB_PATH = libft
+LIB_NAME = libft/libft.a
+LINCLUDES = -L $(LIB_PATH) -lft
 
-libft/libft.a:
-	@make -sC ./libft 
+# Colors Definition
+GREEN = "\033[32;1m"
+RED = "\033[31;1m"
 
-$(BIN)%.o: ./src/mandatory/%.c
-	@$(CC) $(FLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
+# Paths
+SRC = src
+INC = includes
+OBJ = obj
 
-$(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIB) $(HEADERS) -o $(NAME)
+# files path
+MANDATORY = $(SRC)/mandatory
+BONUS = $(SRC)/bonus
 
-$(BIN):
-	@mkdir -p $(BIN)
+# Main
+MAIN_SRC = $(MANDATORY)/push_swap.c
+BONUS_SRC = $(addprefix $(BONUS)/, checker_bonus.c)
 
-tests:
-	$(CC) $(CFLAGS) /.tests/test.c && ./a.out
+CFILES = $(addprefix $(MANDATORY)/, deal_with_args.c \
+			error.c finding.c linked_list.c push.c \
+			push_swap_utils.c rotate.c send_to.c swap.c)
+
+OBJECT = $(CFILES:%.c=$(OBJ)/%.o)
+BIN_OBJ = $(MAIN_SRC:%.c=$(OBJ)/%.o)
+
+# define bonus #
+ifdef WITH_BONUS
+	NAME = $(BONUS_NAME)
+	MAIN_SRC = $(BONUS_SRC)
+	BIN_OBJ = $(BONUS_SRC:%.c=$(OBJ)/%.o)
+endif
+
+define create_objects_dir
+	@mkdir -p $(dir $@)
+endef
+
+define compile
+	@$(CC) -o $(NAME) $(CFLAGS) $(INCLUDES) $(LINCLUDES) $(OBJECT) $(BIN_OBJ) $(LIB_NAME)
+	@echo $(GREEN)[Read to use]$(COLOR_LIMITER)
+endef
+
+define compile_bonus
+	@$(CC) -o $(NAME) $(CFLAGS) $(INCLUDES) $(LINCLUDES) $(OBJECT) $(BIN_OBJ) $(LIB_NAME)
+endef
+
+define compile_source
+	@$(CC) -o $@ $(CFLAGS) $(INCLUDES) -c $< 
+endef
+
+define make_lib
+	@$(MAKE) -sC $(LIB_PATH)
+endef
+define bonus
+	@make WITH_BONUS=TRUE -s
+endef
+
+all: $(NAME)
+
+$(NAME): $(OBJECT) $(BIN_OBJ)
+	$(call create_objects_dir)
+	$(call make_lib)
+	$(call compile)
+
+$(OBJ)/%.o: %.c
+	$(call create_objects_dir)
+	$(call compile_source)
+
+bonus:
+	$(call bonus)
 
 test3:		$(NAME)
 		$(eval ARG = $(shell shuf -i 0-3 -n 3))
@@ -57,13 +107,23 @@ test500:	$(NAME)
 		@./push_swap $(ARG) | wc -l
 
 clean:
-	rm -rf $(BIN)
-	@make clean -sC ./libft 
+	@echo $(RED)[Removing Objects]$(COLOR_LIMITER)
+	@rm -rf $(LIB_PATH)/$(LIB_NAME)
+	@rm -rf $(OBJ)
 
-fclean: clean
-	rm -rf $(NAME) 
-	rm -rf ./libft/libft.a
+fclean: clean fclean_bonus
+	@echo $(RED)[Removing $(NAME) executable]$(COLOR_LIMITER)
+	@make fclean -C $(LIB_PATH) --no-print-directory
+	@rm -rf $(NAME)
 
-re: fclean all
+fclean_bonus:
+ifneq ($(wildcard $(BONUS_NAME)),)
+	@echo $(RED)[Removing $(BONUS_NAME) executable]$(COLOR_LIMITER)
+	@rm -rf $(BONUS_NAME)
+endif
 
-.PHONY: all clean fclean re
+re: fclean
+	@make --no-print-directory
+
+.PHONY: all clean fclean re libft bonus
+.DEFAULT_GOAL := all

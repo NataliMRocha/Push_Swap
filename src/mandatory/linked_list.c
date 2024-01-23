@@ -6,11 +6,11 @@
 /*   By: namoreir <namoreir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:07:49 by natali            #+#    #+#             */
-/*   Updated: 2024/01/12 16:40:46 by namoreir         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:21:35 by namoreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../includes/push_swap.h"
 
 t_data	*new_node(int nb, int pos)
 {
